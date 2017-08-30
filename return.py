@@ -26,8 +26,7 @@ class ship:
         
     def create_new_ship(self):
         new_ship(self.shipname,self.shipclass,self.energy,self.power,self.resourceA,self.resourceB,self.ship_resourceA_income,
-        self.ship_resourceB_income)
-db_initial()       
+        self.ship_resourceB_income)       
 ship_a=ship("test","testclass")
 ship_a.create_new_ship()
 
