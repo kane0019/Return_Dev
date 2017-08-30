@@ -37,23 +37,6 @@ class ship:
         new_ship(self.ship_id,self.shipname,self.shipclass,self.energy,self.power,self.resourceA,self.resourceB,self.ship_resourceA_income,
         self.ship_resourceB_income)
 
-        
-dynamo_client = boto3.client('dynamodb')
-
-
-while True:
-    table_initial=dynamo_client.describe_table(TableName='ship_info')
-    if table_initial['Table']['TableStatus'] == 'CREATING':
-        time.sleep(5)
-    elif table_initial['Table']['TableStatus'] == 'ACTIVE':
-        break
-    else:
-        time.sleep(5)
-        print("Invaliad TableName or Table Status Error!")
-
-# time.sleep(30)
-    
-
 ship_a=ship("test","testclass")
 ship_a.create_new_ship()
 

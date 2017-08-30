@@ -23,9 +23,9 @@ def new_ship(ship_id,ship_name,ship_class,energy,power,resourceA,resourceB,ship_
             'ship_resourceA': ship_resourceA,
             'ship_resourceB': ship_resourceB,
             'module': {
-                'resource_A_miner': False,
-                'generator': False,
-                'reflect_sheild': False
+                'RESOURCE_A_MINER': False,
+                'GENERATOR': False,
+                'REFLECT_SHEILD': False
                 }
             }
         )

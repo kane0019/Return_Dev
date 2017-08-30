@@ -23,7 +23,6 @@ def module_list(ship_id):
 def build_module(selection,ship_id):
     ship_id = ship_id
     module_name=selection
-    print(selection)
     response = table.update_item(
         Key={'ship_id': ship_id},
         UpdateExpression='SET #map.#module_name = :val1',
