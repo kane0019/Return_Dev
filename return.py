@@ -3,7 +3,6 @@ import boto3
 import time
 from event import event
 from turn import turn_out_come
-from DBinitial import db_initial
 from DBInput import new_ship,ship_status_update
 from Avaliable_module import module_list,build_module
 
@@ -18,11 +17,16 @@ class ship:
     power=0
     def __init__(self,shipname,shipclass):
         
-        client = boto3.client('dynamodb')
-        response = client.describe_table(
-            TableName='ship_info'
-        )
-        shipcount=response['Table']['ItemCount']
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('ID_Count')
+        response = table.get_item(
+            Key={
+                'Server_ID': 'Test_Server'
+                },
+            AttributesToGet=['Ship_Count'],
+            ConsistentRead=True
+            )
+        shipcount=response['Item']['Ship_Count']
         self.ship_id=str(int(shipcount+1)).zfill(7)
         self.shipname = shipname
         self.shipclass = shipclass

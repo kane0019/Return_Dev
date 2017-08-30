@@ -13,7 +13,6 @@ def new_ship(ship_id,ship_name,ship_class,energy,power,resourceA,resourceB,ship_
     
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('ship_info')
-
     table.put_item(
         Item={
             'ship_id': ship_id,
@@ -29,6 +28,14 @@ def new_ship(ship_id,ship_name,ship_class,energy,power,resourceA,resourceB,ship_
                 }
             }
         )
+    
+    
+    table = dynamodb.Table('ID_Count')
+    response = table.update_item(
+            Key={'Server_ID':'Test_Server' },
+            UpdateExpression = 'ADD Ship_Count :val',
+            ExpressionAttributeValues = {':val': 1}
+    )
 
     
     

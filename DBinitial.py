@@ -30,14 +30,14 @@ def db_initial():
     table = dynamodb.create_table(
         TableName='ID_Count',
         KeySchema=[{
-            'AttributeName': 'ID_Count',
+            'AttributeName': 'Server_ID',
             'KeyType': 'HASH'
             }     
         ],
         AttributeDefinitions=[
             {
-            'AttributeName': 'ID_Count',
-            'AttributeType': 'N'
+            'AttributeName': 'Server_ID',
+            'AttributeType': 'S'
             }
             ],
         ProvisionedThroughput={
@@ -68,7 +68,8 @@ def db_initial():
     table = dynamodb.Table('ID_Count')
     table.put_item(
         Item={
-            'ID_Count': 0
+            'Server_ID': 'Test_Server',
+            'Ship_Count': 0
             }
         )
 db_initial()
