@@ -5,5 +5,5 @@ class dice:
     def rolldice(self):
         total=0
         for i in range(self.n):
-            total+=random.randrange(6)
+            total+=random.randrange(1,6)
         return total

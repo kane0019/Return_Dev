@@ -1,36 +1,33 @@
-import pymysql
+
+import boto3
 from module_dic import module_dictionary
-def module_list(ship_name):
-    db=pymysql.connect("returndb.cusebofqs8mf.ap-southeast-2.rds.amazonaws.com","Kaihu","Ad20010913","returnDB")
-    cursor=db.cursor(pymysql.cursors.DictCursor)
-    sql="SELECT SHIP_CLASS,SHIP_ENERGY,RESOURCE_A_MINER,GENERATOR,REFLECT_SHEILD FROM RETURN_SHIP_RECORD WHERE SHIP_NAME=%s"
-    param=ship_name
-    cursor.execute(sql,param)
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('ship_info')
+def module_list(ship_id):
+    ship_id=ship_id
+    response = table.get_item(
+        Key={
+            'ship_id': ship_id
+        }
+        )
+    item = response['Item']
     output=[]
-    # cursor.fetchall() can only be call once per query
-    i=0
-    for key,value in cursor.fetchall()[0].items():
-        if value == 'X':
-            i+=1
-            key=str(i)+"."+key
+    for key,item in item['module'].items():
+        if item == False:
             output.append(key)
-    db.close()
-    print("Avalible Module are: ",output)
+    print("Avalible Modules are: ",output)
     return output
-    
     
 # module_list("test")
 
-def build_module(selection,ship_name):
-    db=pymysql.connect("returndb.cusebofqs8mf.ap-southeast-2.rds.amazonaws.com","Kaihu","Ad20010913","returnDB",autocommit=True)
-    cursor=db.cursor(pymysql.cursors.DictCursor)
-
-    sql="UPDATE RETURN_SHIP_RECORD SET {}='O' WHERE SHIP_NAME=%s".format(selection)
-    param=(ship_name)
-    cursor.execute(sql,param)
-    db.close()
-    print("{} Built".format(selection))
+def build_module(selection,ship_id):
+    ship_id = ship_id
+    module_name=selection
+    print(selection)
+    response = table.update_item(
+        Key={'ship_id': ship_id},
+        UpdateExpression='SET #map.#module_name = :val1',
+        ExpressionAttributeNames={'#map':'module','#module_name':selection},
+        ExpressionAttributeValues= {':val1': 'true'}
+    )
     
-    
-    
-build_module("REFLECT_SHEILD","test")
