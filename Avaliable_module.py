@@ -18,7 +18,9 @@ def module_list(ship_id):
     print("Avalible Modules are: ",output)
     return output
     
-# module_list("test")
+def module_detail(module):
+    details = module_dictionary(module)
+    print(details)
 
 def build_module(selection,ship_id):
     ship_id = ship_id
