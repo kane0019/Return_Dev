@@ -5,6 +5,7 @@ from event import event
 from turn import turn_out_come
 from DBInput import new_ship,ship_status_update
 from Avaliable_module import module_list,module_detail,build_module
+from get_ship_status import get_ship_status
 
 class ship:
     shipname=""
@@ -50,10 +51,9 @@ ship_a.create_new_ship()
 # start of the turn
 eventnumber=dice(2).rolldice()
 turn_event=event(eventnumber).event_run()
-turn_out_come(ship_a,turn_event)
-print(ship_a.shipname,ship_a.shipclass,ship_a.energy,ship_a.resourceA,ship_a.resourceB,ship_a.power)    
-ship_status_update(ship_a.ship_id,ship_a.shipname,ship_a.shipclass,ship_a.energy,ship_a.power,ship_a.resourceA,ship_a.resourceB,)
-
+turn_out_come(ship_a,turn_event)  
+ship_status_update(ship_a.ship_id,ship_a.shipname,ship_a.shipclass,ship_a.energy,ship_a.power,ship_a.resourceA,ship_a.resourceB,ship_a.ship_resourceA_income,ship_a.ship_resourceB_income)
+print(get_ship_status(ship_a.ship_id))
 loopender = 0
 while loopender != 1:
     avaliable_module_list=module_list(ship_a.ship_id)
@@ -70,6 +70,8 @@ while loopender != 1:
             break
         else:
             break
+
+print(get_ship_status(ship_a.ship_id))
            
 
 
