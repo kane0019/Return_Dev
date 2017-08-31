@@ -18,6 +18,7 @@ def new_ship(ship_id,ship_name,ship_class,energy,power,resourceA,resourceB,ship_
             'ship_id': ship_id,
             'ship_name': ship_name,
             'ship_class': ship_class,
+            'ship_energy': ship_energy,
             'ship_power': ship_power,
             'ship_resourceA': ship_resourceA,
             'ship_resourceB': ship_resourceB,

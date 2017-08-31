@@ -4,7 +4,7 @@ def get_ship_status(ship_id):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('ship_info')
     response = table.get_item(
-        Key={'ship_id': '0000001'},
+        Key={'ship_id': ship_id},
         AttributesToGet=['ship_id','ship_name','ship_class','ship_energy','ship_power','ship_resourceA','ship_resourceB','ship_resourceA_income','ship_resourceB_income'],
         ConsistentRead=True
         )
